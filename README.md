@@ -60,6 +60,8 @@ Enum DeploymentStatus(Enum):
         partDetails = Fetch Part Details with Key PID from partTypeExist
         if partDetails == Null then
           throw ERROR
+        if partDetails.currentOwner != CurrentParticipant then
+          throw ERROR
         partDetails.transferStatus = TransferStatus.IN_TRANSFER
         partDetails.transferTo = newOwner
         Update PartType with Key PT with newPart with Key PID in Ledger
