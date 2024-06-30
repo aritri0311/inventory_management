@@ -1,13 +1,16 @@
 # Keys
-  DH: Design House
-  CM: Chiplet Manufacturers
-  ICM: IC Manufacturers
-  CD : Chiplet Distributors
-  ICD: IC Distributors
-  SI: System Integrators
-  PT: Part Type name
-  PID: Part ID
 
+1. **DH**: Design House
+2. **CM**: Chiplet Manufacturers
+3. **ICM**: IC Manufacturers
+4. **CD**: Chiplet Distributors
+5. **ICD**: IC Distributors
+6. **SI**: System Integrators
+7. **PT**: Part Type name
+8. **PID**: Part ID
+
+# Enums
+```
 Enum TransferStatus(Enum):
   IN_TRANSFER = 0
   NOT_IN_TRANSFER = 1
@@ -15,8 +18,9 @@ Enum TransferStatus(Enum):
 Enum DeploymentStatus(Enum):
   DEPLOYED = 0
   NOT_DEPLOYED = 1
-
+```
 # Register a Part Type
+```
   function RegisterPartType(PT,DH):
     if CurrentParticipant not DH/CM/ICM then
       throw ERROR
@@ -28,9 +32,11 @@ Enum DeploymentStatus(Enum):
       newPartType.part = {}
       newPartType.designHouse = DH
     Update newPartType in Ledger
+```
 
   
 # Register Parts
+```
   function RegisterParts(PT,PIDs):
     if CurrentParticipant not DH/CM/ICM then
       throw ERROR
@@ -49,9 +55,10 @@ Enum DeploymentStatus(Enum):
       newPart.deploymentStatus = DeploymentStatus.NOT_DEPLOYED
       newPart.trace.append(CurrentParticipant)
       Update PartType with Key PT with newPart with Key PID in Ledger
-    
+```
 
 # Transfer Parts
+```
   function TransferParts(PT,PIDs,newOwner):
      partTypeExist = Fetch Part Type with Key PT
      if partTypeExist == Null then
@@ -65,8 +72,10 @@ Enum DeploymentStatus(Enum):
         partDetails.transferStatus = TransferStatus.IN_TRANSFER
         partDetails.transferTo = newOwner
         Update PartType with Key PT with newPart with Key PID in Ledger
+```
 
 # Confirm Received Parts
+```
   function ConfirmPartReceive(PT,PIDs):
     partTypeExist = Fetch Part Type with Key PT
     if partTypeExist == Null then
@@ -82,5 +91,5 @@ Enum DeploymentStatus(Enum):
         partDetails.transferStatus = transferStatus.NOT_IN_TRANSFER
         partDetails.trace.append(CurrentParticipant)
         Update PartType with Key PT with newPart with Key PID in Ledger
-        
+```     
     
