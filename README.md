@@ -28,7 +28,7 @@ Enum DeploymentStatus(Enum):
     if partTypeExist != Null then
       throw ERROR
     else
-      newPartType = partType(PT,DH)
+      newPartType = partType newPartType
       newPartType.part = {}
       newPartType.designHouse = DH
     Update newPartType in Ledger
@@ -47,7 +47,7 @@ Enum DeploymentStatus(Enum):
       partExist = Fetch Part with Key PID from partTypeExist
       if partExist != Null then
         throw ERROR
-      newPart = part(ID,CurrentParticipant) 
+      newPart = part newPart
       newPart.manufacturerName = CurrentParticipant/manufacturerName
       newPart.currentOwner = CurrentParticipant
       newPart.ownerRole = CurrentParticipantRole
