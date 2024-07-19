@@ -19,9 +19,9 @@ Enum DeploymentStatus(Enum):
   DEPLOYED = 0
   NOT_DEPLOYED = 1
 ```
-# Register a Part Type
+# Register New Part Type (Creation and Registration)
 ```
-  function RegisterPartType(PT,DH):
+  function PartType(PT,DH):
     if CurrentParticipant not DH/CM/ICM then
       throw ERROR
     partTypeExist = Fetch Part Type with Key PT
@@ -35,7 +35,7 @@ Enum DeploymentStatus(Enum):
 ```
 
   
-# Register Parts
+# Register New Parts (Creation and Registration)
 ```
   function RegisterParts(PT,PIDs):
     if CurrentParticipant not DH/CM/ICM then
@@ -57,7 +57,7 @@ Enum DeploymentStatus(Enum):
       Update PartType with Key PT with newPart with Key PID in Ledger
 ```
 
-# Transfer Parts
+# Transfer Parts (Transfer)
 ```
   function TransferParts(PT,PIDs,newOwner):
      partTypeExist = Fetch Part Type with Key PT
@@ -74,7 +74,7 @@ Enum DeploymentStatus(Enum):
         Update PartType with Key PT with newPart with Key PID in Ledger
 ```
 
-# Confirm Received Parts
+# Confirm Received Parts (Transfer Confirmation)
 ```
   function ConfirmPartReceive(PT,PIDs):
     partTypeExist = Fetch Part Type with Key PT
@@ -91,5 +91,20 @@ Enum DeploymentStatus(Enum):
         partDetails.transferStatus = transferStatus.NOT_IN_TRANSFER
         partDetails.trace.append(CurrentParticipant)
         Update PartType with Key PT with newPart with Key PID in Ledger
-```     
+
+```
+
+# Tracking and Verification
+```
+
+function TrackingVerification(PT,PIDs):
+  partTypeExist = Fetch Part Type with Key PT
+    if partTypeExist == Null then
+      throw ERROR
+    For all PID in PIDs do
+      partDetails = Fetch Part Details with Key PID from partTypeExist
+        if partDetails == Null then
+          throw ERROR
+        else return partDetails of part with key PID
+
     
