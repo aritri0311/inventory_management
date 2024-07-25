@@ -21,7 +21,7 @@ Enum DeploymentStatus(Enum):
 ```
 # Register New Part Type (Creation and Registration)
 ```
-  function PartType(PT,DH):
+  function RegisterPartType(PT,DH):
     if CurrentParticipant not DH/CM/ICM then
       throw ERROR
     partTypeExist = Fetch Part Type with Key PT
@@ -76,7 +76,7 @@ Enum DeploymentStatus(Enum):
 
 # Confirm Received Parts (Transfer Confirmation)
 ```
-  function ConfirmPartReceive(PT,PIDs):
+  function TransferConfirmation(PT,PIDs):
     partTypeExist = Fetch Part Type with Key PT
     if partTypeExist == Null then
       throw ERROR
